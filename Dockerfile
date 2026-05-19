@@ -34,3 +34,10 @@ RUN mkdir -p /app/storage /app/bootstrap/cache /app/themes /app/plugins \
 
 # Ensure index.php is accessible
 RUN chmod 644 /app/index.php
+
+# Setup Entrypoint
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["supervisord"]
