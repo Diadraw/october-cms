@@ -34,6 +34,7 @@ done
 # 4. Run migrations
 echo "Executing migrations..."
 php artisan october:migrate
+php artisan tailor:migrate
 
 # 5. Clear cache to ensure clean state
 php artisan cache:clear
