@@ -24,7 +24,8 @@ RUN composer install --no-dev --no-interaction --no-scripts --prefer-dist --opti
 COPY . .
 
 # Fix permissions for October CMS
-RUN chown -R application:application /app \
+RUN mkdir -p /app/storage /app/bootstrap/cache /app/themes /app/plugins \
+    && chown -R application:application /app \
     && chmod -R 775 /app/storage /app/bootstrap/cache /app/themes /app/plugins
 
 # Ensure index.php is accessible
