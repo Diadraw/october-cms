@@ -9,7 +9,18 @@ if [ -z "$APP_KEY" ] || [ "$APP_KEY" = "null" ]; then
     export APP_KEY=$(php -r 'echo "base64:".base64_encode(random_bytes(32));')
 fi
 
-# 2. Wait for DB to be ready
+# 2. Ensure all required directories exist and are writable
+echo "Ensuring storage and cache directories..."
+mkdir -p storage/framework/{sessions,views,cache}
+mkdir -p storage/cms/{cache,combiner,twig}
+mkdir -p storage/logs
+mkdir -p storage/app/{uploads,media,resources}
+mkdir -p bootstrap/cache
+
+chown -R application:application storage bootstrap/cache themes plugins
+chmod -R 775 storage bootstrap/cache themes plugins
+
+# 3. Wait for DB to be ready
 DB_HOST_CHECK=${DB_HOST:-db}
 echo "Waiting for database connection ($DB_HOST_CHECK)..."
 MAX_RETRIES=30
@@ -20,9 +31,9 @@ until php -r "new PDO('mysql:host=$DB_HOST_CHECK;port=${DB_PORT:-3306}', '${DB_U
   ((COUNT++))
 done
 
-# 3. Run migrations
+# 4. Run migrations
 echo "Executing migrations..."
-php artisan october:up
+php artisan october:migrate
 
-# 4. Execute the original image entrypoint
+# 5. Execute the original image entrypoint
 exec /opt/docker/bin/entrypoint.sh "$@"
