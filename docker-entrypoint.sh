@@ -22,7 +22,7 @@ done
 
 # 3. Run migrations
 echo "Executing migrations..."
-php artisan october:up --force
+php artisan october:up
 
 # 4. Execute the original image entrypoint
 exec /opt/docker/bin/entrypoint.sh "$@"

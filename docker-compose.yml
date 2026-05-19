@@ -12,13 +12,24 @@ services:
       - WEB_DOCUMENT_ROOT=/app
       - PHP_DISPLAY_ERRORS=1
       - PHP_MEMORY_LIMIT=512M
+      - APP_NAME=${APP_NAME}
+      - APP_ENV=${APP_ENV}
       - APP_KEY=${APP_KEY}
-      - DB_HOST=${DB_HOST:-db}
-      - DB_PORT=${DB_PORT:-3306}
-      - DB_DATABASE=${DB_DATABASE:-october}
-      - DB_USERNAME=${DB_USERNAME:-october}
-      - DB_PASSWORD=${DB_PASSWORD:-secret}
+      - APP_DEBUG=${APP_DEBUG}
       - APP_URL=${APP_URL}
+      - APP_LOCALE=${APP_LOCALE}
+      - ACTIVE_THEME=${ACTIVE_THEME}
+      - BACKEND_URI=${BACKEND_URI}
+      - DB_CONNECTION=${DB_CONNECTION}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - LINK_POLICY=${LINK_POLICY}
+      - MAIL_MAILER=${MAIL_MAILER}
+      - MAIL_HOST=${MAIL_HOST}
+      - MAIL_PORT=${MAIL_PORT}
     ports:
       - "8087:80"
     depends_on:
