@@ -9,11 +9,12 @@ if [ -z "$APP_KEY" ] || [ "$APP_KEY" = "null" ]; then
     export APP_KEY=$(php -r 'echo "base64:".base64_encode(random_bytes(32));')
 fi
 
-# 2. Wait for DB to be ready using a direct PHP check (bypassing artisan config issues)
-echo "Waiting for database connection ($DB_HOST)..."
+# 2. Wait for DB to be ready
+DB_HOST_CHECK=${DB_HOST:-db}
+echo "Waiting for database connection ($DB_HOST_CHECK)..."
 MAX_RETRIES=30
 COUNT=0
-until php -r "new PDO('mysql:host=$DB_HOST;port=${DB_PORT:-3306}', '$DB_USERNAME', '$DB_PASSWORD');" > /dev/null 2>&1 || [ $COUNT -eq $MAX_RETRIES ]; do
+until php -r "new PDO('mysql:host=$DB_HOST_CHECK;port=${DB_PORT:-3306}', '${DB_USERNAME:-october}', '${DB_PASSWORD:-secret}');" > /dev/null 2>&1 || [ $COUNT -eq $MAX_RETRIES ]; do
   echo "Database is unavailable - sleeping ($COUNT/$MAX_RETRIES)"
   sleep 2
   ((COUNT++))
