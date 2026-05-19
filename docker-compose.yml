@@ -1,11 +1,13 @@
 services:
   app:
-    image: webdevops/php-apache:8.3
+    build: .
     container_name: october-app
     restart: unless-stopped
     working_dir: /app
-    volumes:
-      - ./:/app
+    # On production (Dokploy), we don't want to mount the local folder 
+    # as it might overwrite the vendor folder we built in the Dockerfile
+    # volumes:
+    #   - ./:/app
     environment:
       - WEB_DOCUMENT_ROOT=/app
       - PHP_DISPLAY_ERRORS=1
