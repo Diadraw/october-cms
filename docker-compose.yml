@@ -1,0 +1,41 @@
+services:
+  app:
+    image: webdevops/php-apache:8.3
+    container_name: october-app
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      WEB_DOCUMENT_ROOT: /app
+      PHP_DISPLAY_ERRORS: 1
+      PHP_MEMORY_LIMIT: 512M
+    ports:
+      - "8087:80"
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:11
+    container_name: october-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: october
+      MYSQL_USER: october
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: rootsecret
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: october-mail
+    restart: unless-stopped
+    ports:
+      - "8027:8025"
+      - "1027:1025"
+
+volumes:
+  db_data:
