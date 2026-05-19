@@ -11,7 +11,11 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libzip-dev \
-    && docker-php-ext-install gd zip
+    libicu-dev \
+    libxml2-dev \
+    libsqlite3-dev \
+    libonig-dev \
+    && docker-php-ext-install gd zip intl mysqli pdo_mysql opcache mbstring bcmath xml
 
 # Copy composer files
 COPY composer.json ./

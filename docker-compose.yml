@@ -15,14 +15,7 @@ services:
     ports:
       - "8087:80"
     depends_on:
-      db:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/index.php"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
+      - db
 
   db:
     image: mariadb:11
@@ -37,11 +30,6 @@ services:
       - db_data:/var/lib/mysql
     ports:
       - "3307:3306"
-    healthcheck:
-      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   mailpit:
     image: axllent/mailpit
