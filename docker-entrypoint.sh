@@ -39,6 +39,7 @@ php artisan tailor:migrate
 # 5. Clear cache to ensure clean state
 php artisan cache:clear
 php artisan view:clear
+php artisan october:util clear combiner
 
 # 6. Execute the original image entrypoint
 exec /opt/docker/bin/entrypoint.sh "$@"
