@@ -26,7 +26,9 @@ services:
       - DB_DATABASE=${DB_DATABASE}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
-      - LINK_POLICY=${LINK_POLICY}
+      - CACHE_STORE=database
+      - SESSION_DRIVER=database
+      - LINK_POLICY=${LINK_POLICY:-detect}
       - MAIL_MAILER=${MAIL_MAILER}
       - MAIL_HOST=${MAIL_HOST}
       - MAIL_PORT=${MAIL_PORT}

@@ -35,5 +35,9 @@ done
 echo "Executing migrations..."
 php artisan october:migrate
 
-# 5. Execute the original image entrypoint
+# 5. Clear cache to ensure clean state
+php artisan cache:clear
+php artisan view:clear
+
+# 6. Execute the original image entrypoint
 exec /opt/docker/bin/entrypoint.sh "$@"
