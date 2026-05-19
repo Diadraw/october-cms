@@ -1,0 +1,11 @@
+.git
+.github
+node_modules
+vendor
+storage/cms/*
+storage/framework/*
+storage/logs/*
+storage/temp/*
+.env
+docker-compose.yml
+.htaccess
